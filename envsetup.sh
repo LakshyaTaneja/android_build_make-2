@@ -590,6 +590,7 @@ function brunch()
 function breakfast()
 {
     target=$1
+    local variant=$2
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
     for f in `/bin/ls vendor/mdroid/vendorsetup.sh 2> /dev/null`
@@ -609,7 +610,10 @@ function breakfast()
             lunch $target
         else
             # This is probably just the MDROID model name
-            lunch mdroid_$target-userdebug
+            if [ -z "$variant" ]; then
+                variant="userdebug"
+            fi
+            lunch mdroid_$target-$variant
         fi
     fi
     return $?
