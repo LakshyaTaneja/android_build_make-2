@@ -652,7 +652,7 @@ function lunch()
         fi
     fi
 
-    if [[ $product == pa_* ]]
+    if [[ $product == mdroid_* ]]
     then
         pushd $(gettop) > /dev/null
         build/tools/roomservice.py $product
