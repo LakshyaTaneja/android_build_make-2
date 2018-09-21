@@ -224,6 +224,10 @@ include $(BUILD_SYSTEM)/envsetup.mk
 # See envsetup.mk for a description of SCAN_EXCLUDE_DIRS
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
+ifneq ($(MDROID_BUILD),)
+include vendor/mdroid/config/BoardConfigMDroid.mk
+endif
+
 # The build system exposes several variables for where to find the kernel
 # headers:
 #   TARGET_DEVICE_KERNEL_HEADERS is automatically created for the current
@@ -1090,5 +1094,8 @@ ifneq ($(MDROID_BUILD),)
 ## last, to avoid accidental resetting by device configs
 $(eval include device/mdroid/sepolicy/common/sepolicy.mk)
 endif
+
+# Include any vendor specific config.mk file
+-include vendor/*/build/core/config.mk
 
 include $(BUILD_SYSTEM)/dumpvar.mk
